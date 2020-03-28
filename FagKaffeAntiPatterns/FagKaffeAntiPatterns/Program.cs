@@ -54,20 +54,59 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
     /*
       - Bruk av primitives istedenfor sammensatte objekter...
             - mindre fleksibel kode,
-            vanskeligere å legge til funksjonalitet
+            - vanskeligere å legge til funksjonalitet
             - mer kode for validering av parameteres til methods
             - Mere kode øker antall bugs
-            - 
      */
 
     #endregion
 
     #region Eksempler Primitve Obsession
+
+    public class Examples
+    {
+        public void SendEmailToCustomer(string firstName, string lastName, string emailAddress, string email)
+        {
+            // What could possibly go wrong?
+        }
+
+        public void SendSmsToCustomer(string firstName, string lastName, int phoneNumber, string message)
+        {
+            // Mange muligheter for feil
+            // Hva med utenlandske telefonnummer?
+        }
+
+        public void SendLetterToCustomer(string firstName, string lastName, string streetName, int houseNumber, int postCodeNumber, string postCodePlace, string message)
+        {
+            #region Hva kan gå galt?
+            // Alle felter må valideres
+            // Hva med utenlandske adresser med bokstaver i post i postnummer?
+            // Hva med adresser med bokstaver i husnummer?
+            #endregion
+        }
+
+        /*
+         
+         */
+    }
+
     #endregion
 
     #region Forslåg til forbedringer
     #endregion
 
 
+    public class Customer
+    {
 
+    }
+
+    public class Address
+    {
+
+    }
+    public class Person
+    {
+
+    }
 }
