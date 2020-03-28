@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 
 namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
 {
@@ -88,17 +89,43 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
         /*
          
          */
+
+
+        #endregion
+
+        #region Forslåg til forbedringer
+
+        public void SendEmailToCustomer(Customer customer)
+        {
+            // What could possibly go wrong?
+        }
+
+        public void SendSmsToCustomer(Customer customer)
+        {
+            // Mange muligheter for feil
+            // Hva med utenlandske telefonnummer?
+        }
+
+        public void SendLetterToCustomer(Customer customer)
+        {
+            #region Hva kan gå galt?
+            // Alle felter må valideres
+            // Hva med utenlandske adresser med bokstaver i post i postnummer?
+            // Hva med adresser med bokstaver i husnummer?
+            #endregion
+        }
     }
-
-    #endregion
-
-    #region Forslåg til forbedringer
     #endregion
 
 
     public class Customer
     {
-
+        private Person _person;
+        private Address _billingAddress;
+        private Address _postAddress;
+        private MailAddress _emailAddress;
+        private PhoneNumber _MobilePhone;
+        private PhoneNumber _LandLinePhone;
     }
 
     public class Address
@@ -106,6 +133,11 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
 
     }
     public class Person
+    {
+
+    }
+
+    public class PhoneNumber
     {
 
     }
