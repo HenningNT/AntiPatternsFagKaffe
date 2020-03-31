@@ -11,13 +11,18 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
         }
     }
 
+
     #region Intro til patterns og anti patterns
-    /* - Først beskrevet allerede i 1966 
+    /*
+      - Først beskrevet allerede i 1966 
       - Første bok i 1994: " Design Patterns: Elements of Reusable Object-Oriented Software"
+
       - Noen viktige pattern kan finnes her:
            - https://refactoring.guru/design-patterns/catalog
      */
     #endregion
+
+
 
     #region Intro til anti patterns
     /*  - Først beskrevet i 1995 
@@ -37,6 +42,8 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
      */
     #endregion
 
+
+
     #region Primitive Obsession
     /*
        - Primitive obsession er å bruke primitives for mye, istedenfor innkapsle informasjon
@@ -51,6 +58,8 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
      */
     #endregion
 
+
+
     #region Jaha, og hva så? Hva er problemet?
     /*
       - Bruk av primitives istedenfor sammensatte objekter...
@@ -58,11 +67,14 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
             - vanskeligere å legge til funksjonalitet
             - mer kode for validering av parameteres til methods
             - Mere kode øker antall bugs
+            - Mer kode betyr mer unit tester (som alle skriver masse av ? )
      */
 
     #endregion
 
-    #region Eksempler Primitve Obsession
+
+
+    #region Eksempler Primitive Obsession
 
     public class Examples
     {
@@ -117,14 +129,16 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
         }
 
 
-        #endregion
+    #endregion
 
-        #region Forslåg til forbedringer
+
+
+    #region Forslag til forbedringer
 
         public void SendEmailToCustomer(Customer customer)
         {
-            // What could possibly go wrong?
-            // customer er allerede sjekket i contructoren, alle felt skal være gyldige.
+            // Customer er allerede sjekket i contructoren, alle felt skal være gyldige.
+
             // Do stuff
         }
 
@@ -137,10 +151,10 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
         public void SendLetterToCustomer(Customer customer)
         {
             // customer er allerede sjekket i contructoren, alle felt skal være gyldige.
-            // Do stuff
+            // Do stuff confidently ;-) 
         }
 
-        private bool stuffIsOk;
+        private readonly bool stuffIsOk;
 
         // Kanskje enda bedre:
         public Result SendEmailToCustomer_v2(Customer customer)
@@ -151,22 +165,32 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
             else
                 return new Error();
         }
-
     }
 
 
     #endregion
 
+
+
+    #region Avslutningsvis
+
+    // Bruk klasser (eller struct) isteden for primitives
+    // Returner et object istedenfor bool
+
+    #endregion
+
+
+
     #region support classes
 
     public class Customer
     {
-        private Person _person;
-        private Address _billingAddress;
-        private Address _postAddress;
-        private MailAddress _emailAddress;
-        private PhoneNumber _MobilePhone;
-        private PhoneNumber _LandLinePhone;
+        private readonly Person _person;
+        private readonly Address _billingAddress;
+        private readonly Address _postAddress;
+        private readonly MailAddress _emailAddress;
+        private readonly PhoneNumber _MobilePhone;
+        private readonly PhoneNumber _LandLinePhone;
     }
 
     public class Address
