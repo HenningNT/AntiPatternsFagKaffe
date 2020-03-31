@@ -69,26 +69,52 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
         public void SendEmailToCustomer(string firstName, string lastName, string emailAddress, string email)
         {
             // What could possibly go wrong?
+            #region
+            if (string.IsNullOrEmpty(firstName)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(lastName)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(emailAddress)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(email)) throw new ArgumentException();
+
+            // do stuff...
+            #endregion
         }
 
         public void SendSmsToCustomer(string firstName, string lastName, int phoneNumber, string message)
         {
             // Mange muligheter for feil
             // Hva med utenlandske telefonnummer?
+
+            #region
+            if (string.IsNullOrEmpty(firstName)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(lastName)) throw new ArgumentException();
+            if (!IsValidMobileNumber(phoneNumber)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(message)) throw new ArgumentException();
+
+            // do stuff...
+            #endregion
         }
 
         public void SendLetterToCustomer(string firstName, string lastName, string streetName, int houseNumber, int postCodeNumber, string postCodePlace, string message)
         {
-            #region Hva kan gå galt?
             // Alle felter må valideres
             // Hva med utenlandske adresser med bokstaver i post i postnummer?
             // Hva med adresser med bokstaver i husnummer?
+
+            #region 
+            if (string.IsNullOrEmpty(firstName)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(lastName)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(streetName)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(postCodePlace)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(message)) throw new ArgumentException();
+
+            // do stuff...
             #endregion
         }
 
-        /*
-         
-         */
+        private bool IsValidMobileNumber(int phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
 
 
         #endregion
@@ -98,25 +124,40 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
         public void SendEmailToCustomer(Customer customer)
         {
             // What could possibly go wrong?
+            // customer er allerede sjekket i contructoren, alle felt skal være gyldige.
+            // Do stuff
         }
 
         public void SendSmsToCustomer(Customer customer)
         {
-            // Mange muligheter for feil
-            // Hva med utenlandske telefonnummer?
+            // customer er allerede sjekket i contructoren, alle felt skal være gyldige.
+            // Do stuff
         }
 
         public void SendLetterToCustomer(Customer customer)
         {
-            #region Hva kan gå galt?
-            // Alle felter må valideres
-            // Hva med utenlandske adresser med bokstaver i post i postnummer?
-            // Hva med adresser med bokstaver i husnummer?
-            #endregion
+            // customer er allerede sjekket i contructoren, alle felt skal være gyldige.
+            // Do stuff
         }
+
+        private bool stuffIsOk;
+
+        // Kanskje enda bedre:
+        public Result SendEmailToCustomer_v2(Customer customer)
+        {
+            // Do stuff
+            if (stuffIsOk)
+                return new Ok();
+            else
+                return new Error();
+        }
+
     }
+
+
     #endregion
 
+    #region support classes
 
     public class Customer
     {
@@ -130,15 +171,19 @@ namespace Bouvet.Rogaland.Enigma.FagKaffe.AntiPatterns
 
     public class Address
     {
-
     }
     public class Person
     {
-
     }
 
     public class PhoneNumber
     {
-
     }
+
+    public class Result    {    }
+    public class Ok : Result    { }
+    public class Error : Result { }
+
+    #endregion
+
 }
